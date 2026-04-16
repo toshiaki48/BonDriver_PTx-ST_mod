@@ -2,16 +2,26 @@ name: Build
 on: workflow_dispatch
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
+
+      - name: Force SDK Version
+        # プロジェクトファイル内の 8.1 という記述を 10.0 に強制書き換え
+        run: |
+          (Get-ChildItem -Recurse -Filter *.vcxproj) | ForEach-Object {
+            $content = Get-Content $_.FullName
+            $content -replace '<WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>', '<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>' | Set-Content $_.FullName
+          }
+        shell: powershell
+
       - name: Build Win32
-        # WindowsTargetPlatformVersion=10.0 を追加して、古いSDKエラーを回避します
-        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143
       - name: Build x64
-        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
