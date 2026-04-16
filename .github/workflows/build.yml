@@ -27,7 +27,7 @@ jobs:
         with:
           name: BonDriver_PTx-ST_mod_Binaries
           path: |
-            **/Release/BonDriver_PTx.dll
-            **/Release/PTxCtrl.exe
-            **/Release/PTxScanS.exe
+            **/BonDriver_PTx.dll
+            **/PTxCtrl.exe
+            **/PTxScanS.exe
             
