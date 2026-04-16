@@ -1,0 +1,22 @@
+name: Build
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+      - name: Build Win32
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=Win32
+      - name: Build x64
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=x64
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BonDriver_PTx-ST_mod_Binaries
+          path: |
+            Release/BonDriver_PTx.dll
+            Release/PTxCtrl.exe
+            x64/Release/BonDriver_PTx.dll
+            x64/Release/PTxCtrl.exe
