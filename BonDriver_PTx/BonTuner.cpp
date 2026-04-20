@@ -354,17 +354,17 @@ void CBonTuner::BuildDefSpace(wstring strIni)
 
 		if(UHF) {
 			for(offs=13,C=i=0;i<50;i++) entry_ch([](DWORD i){return i+63;});
-			entry_spc(L"x5730\x30c7\x30b8(UHF)") ;
+			entry_spc(L"DTT(UHF)") ;
 		}
 
 		if(CATV) {
 			for(offs=13,C=1,i=0;i<51;i++) entry_ch([](DWORD i){return i+(i>=10?12:3);});
-			entry_spc(L"x5730\x30c7\x30b8(CATV)") ;
+			entry_spc(L"DTT(CATV)") ;
 		}
 
 		if(VHF) {
 			for(offs=1,C=i=0;i<12;i++) entry_ch([](DWORD i){return i+(i>=3?10:0);});
-			entry_spc(L"x5730\x30c7\x30b8(VHF)") ;
+			entry_spc(L"DTT(VHF)") ;
 		}
 
 	}
