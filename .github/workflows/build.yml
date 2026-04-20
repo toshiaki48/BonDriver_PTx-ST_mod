@@ -18,9 +18,9 @@ jobs:
         shell: powershell
 
       - name: Build Win32
-        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /p:AdditionalOptions="/utf-8"
       - name: Build x64
-        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+        run: msbuild BonDriver_PTx.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /p:AdditionalOptions="/utf-8"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
